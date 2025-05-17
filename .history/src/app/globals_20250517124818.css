@@ -99,8 +99,7 @@ body {
 .div1,
 .div2,
 .div3,
-.div4,
-.div5 {
+.div4 {
   min-height: 200px;
   box-sizing: border-box;
   background: var(--background);
@@ -152,20 +151,6 @@ body {
   justify-content: center;
   align-items: center;
   gap: 1rem;
-}
-
-.div5 {
-  grid-area: 1 / 1 / 2 / 3;
-  /* spans two columns */
-  min-height: 500px;
-  align-content: center;
-  padding-left: 4rem;
-  padding-right: 4rem;
-  /* keep this taller */
-  /* width: 100%; no fixed min-width here */
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
 }
 
 .left {
@@ -253,12 +238,3 @@ body {
   margin-right: auto;
 
 }
-
-.title-text {
-  font-size: 2.5rem;
-}
-
-/* .dish-info {
-  text-align: justify;
-  text-align-last: left;
-} */

@@ -90,7 +90,7 @@ const SelectDish = () => {
                         <div className="left">
                             <p><strong>Selected Dish:</strong></p>
                             {dish?.strMeal}
-                            <p>Price: ${mealPrice.toFixed(2)}</p>
+                            <p>${mealPrice.toFixed(2)}</p>price:
                             <p><strong>Selected Drink:</strong></p>
 
                             <p><strong>Selected Date:</strong></p>
@@ -101,11 +101,8 @@ const SelectDish = () => {
 
                         </div >
                         <div className="centered">
-                            {/* <p>To select this tiny dish and continue to tiny drinks selection click this tiny button</p> */}
-                            <Link href={"../select-drink"}>
-                                <button className="button">
-                                    Select This Tiny Dish
-                                </button>
+                            <Link href={"/select-dish"}>
+                                <button className="button">Select This Tiny Dish</button>
                             </Link>
                         </div>
                     </div>

@@ -13,10 +13,8 @@ type Dish = {
 };
 
 type ApiResponse = {
-    meals: Dish[];
+    meals: Dish;
 };
-
-
 
 const randomPrice = (min = 5, max = 100) => {
     const price = Math.random() * (max - min) + min;

@@ -71,7 +71,7 @@ body {
 }
 
 /* Parent grid container */
-.parent-homescreen {
+.parent {
   display: grid;
   height: 100%;
   /* fill the container height */
@@ -83,24 +83,11 @@ body {
 
 }
 
-.parent-orderdish {
-  display: grid;
-  height: 100%;
-  /* fill the container height */
-  width: 100%;
-  grid-template-columns: minmax(400px, 1fr) minmax(300px, 1fr) minmax(300px, 1fr);
-  /* grid-template-rows: minmax(600px, 70%) minmax(200px, 30%); */
-  gap: 2rem;
-  overflow-x: auto;
-
-}
-
 /* Divs all take 100% of their grid cell, no fixed min-width here */
 .div1,
 .div2,
 .div3,
-.div4,
-.div5 {
+.div4 {
   min-height: 200px;
   box-sizing: border-box;
   background: var(--background);
@@ -152,20 +139,6 @@ body {
   justify-content: center;
   align-items: center;
   gap: 1rem;
-}
-
-.div5 {
-  grid-area: 1 / 1 / 2 / 3;
-  /* spans two columns */
-  min-height: 500px;
-  align-content: center;
-  padding-left: 4rem;
-  padding-right: 4rem;
-  /* keep this taller */
-  /* width: 100%; no fixed min-width here */
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
 }
 
 .left {
@@ -241,24 +214,11 @@ body {
 .dish-photo {
   /* width: 100%;
   height: 100%; */
-  max-width: 650px;
+  max-width: 450px;
   max-height: 550px;
   overflow: hidden;
   position: relative;
   border: 1px solid #ddd;
   border-radius: 0.5rem;
-  display: flex;
-  align-content: center;
-  margin-left: auto;
-  margin-right: auto;
 
 }
-
-.title-text {
-  font-size: 2.5rem;
-}
-
-/* .dish-info {
-  text-align: justify;
-  text-align-last: left;
-} */

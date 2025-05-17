@@ -16,8 +16,6 @@ type ApiResponse = {
     meals: Dish[];
 };
 
-
-
 const randomPrice = (min = 5, max = 100) => {
     const price = Math.random() * (max - min) + min;
     return Number(price.toFixed(2));

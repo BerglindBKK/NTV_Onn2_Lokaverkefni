@@ -25,9 +25,10 @@ const SelectDrink = () => {
             if (response.status !== 200) {
                 throw new Error(`Response status: ${response.status}`);
             }
-            const json: ApiResponse = await response.json();
-            console.log(json.drinks, "tjekk");
-            return json.drinks;
+            const jsonDrink: Drink[] = await response.json();
+            console.log(jsonDrink);
+            console.log("tjekk");
+            return jsonDrink;
 
         } catch (error: any) {
             // If something goes wrong, log the error and return an empty array
@@ -59,12 +60,23 @@ const SelectDrink = () => {
                             </div>
                         ) : (
                             <div className="grid-container">
-                                {drink.map((im, idx) => (
-                                    <img
-                                        key={im.idDrink}
-                                        src={im.strDrinkThumb}
-                                        alt={im.strDrink}
-                                    />
+                                {/* Render each cat image inside a div */}
+                                {drink.map((im, index) => (
+                                    <div
+                                    // className="grid-item"
+                                    // key={im.idDrink}
+                                    // onClick={() => {
+                                    //     setSelectedCatId(im.id);
+                                    //     const facturl = im.url;
+                                    // }}
+                                    >
+                                        <img src={im.strDrinkThumb} alt={`drink ${index}`} />
+                                        {/* {showFact && <ChildFact />} */}
+                                        {/* {selectedCatId === im.id && (
+                                            <div className="grid-item-fact">
+                                                {catFact}
+                                            </div>)} */}
+                                    </div>
                                 ))}
                             </div>
                         )}

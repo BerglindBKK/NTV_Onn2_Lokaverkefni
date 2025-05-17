@@ -6,12 +6,8 @@ import { useEffect, useState } from "react";
 type Drink = {
     idDrink: string;
     strDrink: string;
-    strDrinkThumb: string;
 }
 
-type ApiResponse = {
-    drinks: Drink[];
-};
 const SelectDrink = () => {
     // useState hook to store the list of drinks
     const [drink, setDrink] = useState<Drink[]>([]);
@@ -25,27 +21,8 @@ const SelectDrink = () => {
             if (response.status !== 200) {
                 throw new Error(`Response status: ${response.status}`);
             }
-            const json: ApiResponse = await response.json();
-            console.log(json.drinks, "tjekk");
-            return json.drinks;
-
-        } catch (error: any) {
-            // If something goes wrong, log the error and return an empty array
-            console.error("Error fetching drink data:", error);
-            return [];
         }
-    };
-
-    useEffect(() => {
-        // Function to load and store dish in state
-        const fetchDrink = async () => {
-            const drink = await getDrinkData();
-            setDrink(drink);
-            // setMealPrice(randomPrice());
-            // setMealCalories(randomCalories());
-        };
-        fetchDrink();
-    }, []);
+    }
 
     return (
         <div className="page-container">
@@ -53,24 +30,6 @@ const SelectDrink = () => {
             <main className="grid-wrapper">
                 <div className="parent-orderdish">
                     <div className="div5">
-                        {drink.length === 0 ? (
-                            <div className="p-20">
-                                <p>Loading...</p>
-                            </div>
-                        ) : (
-                            <div className="grid-container">
-                                {drink.map((im, idx) => (
-                                    <img
-                                        key={im.idDrink}
-                                        src={im.strDrinkThumb}
-                                        alt={im.strDrink}
-                                    />
-                                ))}
-                            </div>
-                        )}
-
-
-
                         <div className="dish-photo">
 
                         </div>

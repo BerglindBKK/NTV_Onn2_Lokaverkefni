@@ -101,11 +101,9 @@ const SelectDish = () => {
 
                         </div >
                         <div className="centered">
-                            {/* <p>To select this tiny dish and continue to tiny drinks selection click this tiny button</p> */}
-                            <Link href={"../select-drink"}>
-                                <button className="button">
-                                    Select This Tiny Dish
-                                </button>
+                            <p>To select this tiny dish and continue to tiny drinks selection click this tiny button</p>
+                            <Link href={"/select-dish"}>
+                                <button className="button">Select This Tiny Dish</button>
                             </Link>
                         </div>
                     </div>

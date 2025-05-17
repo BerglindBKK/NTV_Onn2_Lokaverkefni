@@ -30,8 +30,8 @@ const randomCalories = (min = 300, max = 1000) => {
 
 const SelectDish = () => {
     const [dish, setDish] = useState<Dish | null>(null);
-    const [mealPrice, setMealPrice] = useState<number>(0);
-    const [mealCalories, setMealCalories] = useState<number>(0);
+    const [price, setPrice] = useState<number>(0);
+    const [calories, setCalories] = useState<number>(0);
 
     const getDishData = async () => {
         try {
@@ -59,8 +59,8 @@ const SelectDish = () => {
         const fetchDish = async () => {
             const dish = await getDishData();
             setDish(dish);
-            setMealPrice(randomPrice());
-            setMealCalories(randomCalories());
+            setPrice(randomPrice());
+            setCalories(randomCalories());
         };
         fetchDish();
     }, []);
@@ -82,30 +82,25 @@ const SelectDish = () => {
                             <p className="title-text centered"><strong>{dish?.strMeal}</strong></p>
                             <p className="centered"> A tiny {dish?.strArea} {dish?.strMeal} meal that fits, fits right in</p>
                             <br></br>
-                            <p className="centered"> Tiny calories: {mealCalories.toFixed(0)} kCal</p>
-                            <p className="centered"> Tiny price: $ {mealPrice.toFixed(2)}</p>
+                            <p className="centered"> Tiny calories: {calories.toFixed(0)} kCal</p>
+                            <p className="centered"> Tiny price: $ {price.toFixed(2)}</p>
                         </div>
                     </div>
                     <div className="div2">
                         <div className="left">
                             <p><strong>Selected Dish:</strong></p>
                             {dish?.strMeal}
-                            <p>Price: ${mealPrice.toFixed(2)}</p>
                             <p><strong>Selected Drink:</strong></p>
 
                             <p><strong>Selected Date:</strong></p>
-                            <br></br>
 
-                            <p><strong>Total price:</strong> ${mealPrice.toFixed(2)}</p>
+                            <p><strong>Price:</strong> $ {price.toFixed(2)}</p>
 
 
                         </div >
                         <div className="centered">
-                            {/* <p>To select this tiny dish and continue to tiny drinks selection click this tiny button</p> */}
-                            <Link href={"../select-drink"}>
-                                <button className="button">
-                                    Select This Tiny Dish
-                                </button>
+                            <Link href={"/select-dish"}>
+                                <button className="button">Select This Tiny Dish</button>
                             </Link>
                         </div>
                     </div>

@@ -25,9 +25,10 @@ const SelectDrink = () => {
             if (response.status !== 200) {
                 throw new Error(`Response status: ${response.status}`);
             }
-            const json: ApiResponse = await response.json();
-            console.log(json.drinks, "tjekk");
-            return json.drinks;
+            const jsonDrink: Drink[] = await response.json();
+            console.log(jsonDrink);
+            console.log("tjekk");
+            return jsonDrink;
 
         } catch (error: any) {
             // If something goes wrong, log the error and return an empty array
@@ -53,18 +54,29 @@ const SelectDrink = () => {
             <main className="grid-wrapper">
                 <div className="parent-orderdish">
                     <div className="div5">
-                        {drink.length === 0 ? (
+                        {catImages.length === 0 ? (
                             <div className="p-20">
                                 <p>Loading...</p>
                             </div>
                         ) : (
                             <div className="grid-container">
-                                {drink.map((im, idx) => (
-                                    <img
-                                        key={im.idDrink}
-                                        src={im.strDrinkThumb}
-                                        alt={im.strDrink}
-                                    />
+                                {/* Render each cat image inside a div */}
+                                {catImages.map((im, index) => (
+                                    <div
+                                        className="grid-item"
+                                        key={im.id}
+                                        onClick={() => {
+                                            setSelectedCatId(im.id);
+                                            const facturl = im.url;
+                                        }}
+                                    >
+                                        <img src={im.url} alt={`cat ${index}`} />
+                                        {/* {showFact && <ChildFact />} */}
+                                        {selectedCatId === im.id && (
+                                            <div className="grid-item-fact">
+                                                {catFact}
+                                            </div>)}
+                                    </div>
                                 ))}
                             </div>
                         )}

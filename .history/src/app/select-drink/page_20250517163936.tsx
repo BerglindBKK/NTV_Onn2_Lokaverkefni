@@ -59,12 +59,26 @@ const SelectDrink = () => {
                             </div>
                         ) : (
                             <div className="grid-container">
-                                {drink.map((im, idx) => (
+                                {/* Render each cat image inside a div */}
+                                {drink.map((im, index) => (
+                                    // <div
+                                    // className="grid-item"
+                                    // key={im.idDrink}
+                                    // onClick={() => {
+                                    //     setSelectedCatId(im.id);
+                                    //     const facturl = im.url;
+                                    // }}
+                                    // >
                                     <img
                                         key={im.idDrink}
                                         src={im.strDrinkThumb}
-                                        alt={im.strDrink}
-                                    />
+                                        alt={`drink ${index}`} />
+                                        {/* {showFact && <ChildFact />} */ }
+                                        {/* {selectedCatId === im.id && (
+                                            <div className="grid-item-fact">
+                                                {catFact}
+                                            </div>)} */}
+                                    // </div>
                                 ))}
                             </div>
                         )}
