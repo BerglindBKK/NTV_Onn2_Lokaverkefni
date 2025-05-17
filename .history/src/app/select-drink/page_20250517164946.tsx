@@ -15,7 +15,6 @@ type ApiResponse = {
 const SelectDrink = () => {
     // useState hook to store the list of drinks
     const [drink, setDrink] = useState<Drink[]>([]);
-    const [selectedDrinkId, setSelectedDrinkId] = useState<string | null>(null);
 
     const getDrinkData = async () => {
         try {
@@ -64,11 +63,10 @@ const SelectDrink = () => {
                                     <div
                                         className="grid-item"
                                         key={im.idDrink}
-                                        onMouseEnter={() => {
-                                            setSelectedDrinkId(im.idDrink);
-                                            const facturl = im.strDrink;
+                                        onClick={() => {
+                                            // setSelectedDrinkId(im.idDrink);
+                                            // const facturl = im.strDrink;
                                         }}
-                                        onMouseLeave={() => setSelectedDrinkId("")}
                                     >
                                         <img
                                             key={im.idDrink}
@@ -76,9 +74,9 @@ const SelectDrink = () => {
                                             alt={im.strDrink}
                                         />
                                         {/* {showFact && <ChildFact />} */}
-                                        {selectedDrinkId === im.idDrink && (
+                                        {selectedCatId === im.id && (
                                             <div className="grid-item-fact">
-                                                {im.idDrink}
+                                                {catFact}
                                             </div>)}
                                     </div>
                                 ))}

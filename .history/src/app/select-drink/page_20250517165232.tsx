@@ -68,7 +68,6 @@ const SelectDrink = () => {
                                             setSelectedDrinkId(im.idDrink);
                                             const facturl = im.strDrink;
                                         }}
-                                        onMouseLeave={() => setSelectedDrinkId("")}
                                     >
                                         <img
                                             key={im.idDrink}

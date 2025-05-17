@@ -64,11 +64,10 @@ const SelectDrink = () => {
                                     <div
                                         className="grid-item"
                                         key={im.idDrink}
-                                        onMouseEnter={() => {
+                                        onClick={() => {
                                             setSelectedDrinkId(im.idDrink);
                                             const facturl = im.strDrink;
                                         }}
-                                        onMouseLeave={() => setSelectedDrinkId("")}
                                     >
                                         <img
                                             key={im.idDrink}
