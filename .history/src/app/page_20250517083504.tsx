@@ -33,28 +33,27 @@ const Home = () => {
 							</p>
 
 						</div >
-						<div className="centered">
+						<div>
 							<Link href={"/select-dish"}>
 								<button className="button">Start Tiny Order</button>
 							</Link>
 						</div>
-					</div>
-					<div className="div3">
+						<div className="div3">
+
+						</div>
+						<div className="div4">
+							<input
+								type="text"
+								placeholder="Enter something..."
+								className="custom-input"
+							/>
+							<Link href={"/order-dish"}>
+								<button className="button">Find Tiny Order</button>
+							</Link>
+						</div>
 
 					</div>
-					<div className="div4">
-						<input
-							type="text"
-							placeholder="Enter something..."
-							className="custom-input"
-						/>
-						<Link href={"/order-dish"}>
-							<button className="button">Find Tiny Order</button>
-						</Link>
-					</div>
-
-				</div>
-				{/* <div className="bg-blue-500">
+					{/* <div className="bg-blue-500">
 					refreshingcheck - delete later
 				</div> */}
 			</main>

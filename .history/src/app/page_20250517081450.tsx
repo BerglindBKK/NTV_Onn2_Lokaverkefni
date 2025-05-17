@@ -32,13 +32,10 @@ const Home = () => {
 								Tiny people that are ready to deliver to you!
 							</p>
 
-						</div >
-						<div className="centered">
-							<Link href={"/select-dish"}>
-								<button className="button">Start Tiny Order</button>
-							</Link>
 						</div>
-					</div>
+						<Link href={"/select-dish"}>
+							<button className="button">Start Tiny Order</button>
+						</Link></div>
 					<div className="div3">
 
 					</div>

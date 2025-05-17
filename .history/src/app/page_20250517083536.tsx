@@ -33,11 +33,9 @@ const Home = () => {
 							</p>
 
 						</div >
-						<div className="centered">
-							<Link href={"/select-dish"}>
-								<button className="button">Start Tiny Order</button>
-							</Link>
-						</div>
+						<Link href={"/select-dish"}>
+							<button className="button">Start Tiny Order</button>
+						</Link>
 					</div>
 					<div className="div3">
 
