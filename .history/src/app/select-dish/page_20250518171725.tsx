@@ -38,9 +38,11 @@ const SelectDish = () => {
 
     //skrifa í eigið api
     // const handleSelect = () => {
-    //     if (!dish) return; -> óvirkur takki?
-    //     1) vista info í api
-    //     2)fara á næstu síðu
+    //     if (!dish) return;
+    //     // 1) write it into localStorage
+    //     localStorage.setItem("selectedDish", JSON.stringify(dish));
+    //     // 2) navigate to the next page
+    //     router.push("/select-drink");
     // };
 
     //fetching dish from url and storing it in a json file
@@ -73,13 +75,17 @@ const SelectDish = () => {
         setMealCalories(randomCalories());
     };
 
-    //everything loads once per mount
     useEffect(() => {
+
+
         fetchDish();
     }, []);
 
+
+
     return (
         <div className="page-container">
+
             <main className="grid-wrapper">
                 <div className="parent-orderdish">
                     <div className="div5">
@@ -107,21 +113,30 @@ const SelectDish = () => {
                             <br></br>
 
                             <p><strong>Total price:</strong> ${mealPrice.toFixed(2)}</p>
+
+
                         </div >
-                        <button
-                            className="button"
-                            onClick={() => {
-                                // handleSelcet  -> bæta við store dish info in api
-                                router.push("/select-drink");
-                            }}
-                        >
-                            Select Tiny Dish
-                        </button>
+                        <div className="centered">
+                            {/* <p>To select this tiny dish and continue to tiny drinks selection click this tiny button</p> */}
+                            <button
+                                className="button"
+                                onClick={() => {
+                                    // e.g. store selection if you want:
+                                    // localStorage.setItem(
+                                    //     "selectedDrinkIds",
+                                    //     JSON.stringify(selectedDrinkId)
+                                    // );
+                                    // then navigate:
+                                    router.push("/select-drink");
+                                }}
+                            >
+                                Select Tiny Drinks
+                            </button>
+                        </div>
                     </div>
                 </div>
-
-            </main >
-        </div >
+            </main>
+        </div>
     )
 }
 

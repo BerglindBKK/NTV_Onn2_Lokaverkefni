@@ -37,7 +37,7 @@ const OrderScreen = () => {
                             <button
                                 className="button"
                                 onClick={() => {
-                                    // router.push("/receipt-screen");
+                                    // router.push("/next-page");
                                 }}
                             >
                                 Select Tiny Drinks

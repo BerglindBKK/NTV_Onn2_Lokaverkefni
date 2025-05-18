@@ -1,11 +1,6 @@
 "use client";
 
-//ToDo: Setja inn leitarglugga
-//ToDo: Setja inn leit fyrir nafn, innihald
-//Gefa drykkjum random verð - nei, fast verð á drykk, þarf að vera hægt að slá inn fjölda fyrir hvern
-//Adda saman verðið í div2 allir drykkir + matur (plús fjöldi manns í næsta skrefi!)
-
-
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
@@ -19,13 +14,18 @@ type ApiResponse = {
     drinks: Drink[];
 };
 
+const randomPrice = (min = 5, max = 100) => {
+    const price = Math.random() * (max - min) + min;
+    return Number(price.toFixed(2));
+};
+
 const SelectDrink = () => {
     const router = useRouter();
-    const [drink, setDrink] = useState<Drink[]>([]); //list of drinks
-    const [hoveredDrinkId, setHoveredDrinkId] = useState<string | null>(null); //which one is hovered
-    const [selectedDrinkId, setSelectedDrinkId] = useState<string[]>([]); //list of selected drinks
+    // useState hook to store the list of drinks
+    const [drink, setDrink] = useState<Drink[]>([]);
+    const [hoveredDrinkId, setHoveredDrinkId] = useState<string | null>(null);
+    const [selectedDrinkId, setSelectedDrinkId] = useState<string[]>([]);
 
-    //fetching all drinks with initial letter a and storing it in a json file
     const getDrinkData = async () => {
         try {
             const url = "https://www.thecocktaildb.com/api/json/v1/1/search.php?f=a";
@@ -36,8 +36,7 @@ const SelectDrink = () => {
                 throw new Error(`Response status: ${response.status}`);
             }
             const json: ApiResponse = await response.json();
-            console.log(json.drinks, "halló, er ég hér?");
-            //returning only the "drinks" array from the api
+            console.log(json.drinks, "tjekk");
             return json.drinks;
 
         } catch (error: any) {
@@ -47,32 +46,30 @@ const SelectDrink = () => {
         }
     };
 
-    // Function to load and store drink in state.
-    const fetchDrink = async () => {
-        const drink = await getDrinkData();
-        setDrink(drink);
-    };
-
-    //  Loaded only on mount.
     useEffect(() => {
+        // Function to load and store dish in state
+        const fetchDrink = async () => {
+            const drink = await getDrinkData();
+            setDrink(drink);
+            // setMealPrice(randomPrice());
+            // setMealCalories(randomCalories());
+        };
         fetchDrink();
     }, []);
 
-    //filter: returns a new array for selected Drinks. Iterates over array and checks which drink d's idDrink is in selectedDrinkId
     const selectedDrinks = drink.filter(d => selectedDrinkId.includes(d.idDrink));
 
     return (
         <div className="page-container">
+
             <main className="grid-wrapper">
                 <div className="parent-orderdish">
                     <div className="div5">
-                        {/* checks if there are info to display in the array, if not say loading */}
                         {drink.length === 0 ? (
                             <div className="p-20">
                                 <p>Loading...</p>
                             </div>
                         ) : (
-                            // For each Drink in drink, make a new div and check if it's selected, then assigns the approriate css class
                             <div className="grid-container">
                                 {drink.map((im, idx) => (
                                     <div
@@ -81,13 +78,12 @@ const SelectDrink = () => {
                                             (selectedDrinkId.includes(im.idDrink) ? " grid-item--selected" : "")
                                         }
                                         key={im.idDrink}
-                                        //if hovered, set as hovered drink
                                         onMouseEnter={() => {
                                             setHoveredDrinkId(im.idDrink);
+                                            // const facturl = im.strDrink;
                                         }}
-                                        //when not hovered anymore, unselected from hovered drinks
                                         onMouseLeave={() => setHoveredDrinkId("")}
-                                        //onClick is a toggle, if idDrinks is in SelectedDrinkId, then unselect. If not: select
+                                        //onClick is now a toggle
                                         onClick={() => {
                                             setSelectedDrinkId(ids =>
                                                 ids.includes(im.idDrink)
@@ -96,7 +92,6 @@ const SelectDrink = () => {
                                             );
                                         }}
                                     >
-                                        {/* display drink photo, if hovered, use grid-item-fact from css for overlay and display info */}
                                         <img
                                             key={im.idDrink}
                                             src={im.strDrinkThumb}
@@ -112,8 +107,14 @@ const SelectDrink = () => {
                             </div>
 
                         )}
+
+                        <div className="dish-photo">
+
+                        </div>
+                        <div className="drink-info">
+
+                        </div>
                     </div>
-                    {/* right summary div - samhæfa og uppfæra*/}
                     <div className="div2">
                         <div className="left">
                             <p><strong>Selected Dish:</strong></p>
@@ -134,15 +135,20 @@ const SelectDrink = () => {
 
                         </div >
                         <div className="centered">
-
+                            {/* <p>To select this tiny dish and continue to tiny drinks selection click this tiny button</p> */}
                             <button
                                 className="button"
                                 onClick={() => {
-                                    // handleSelcet  -> store dish info in api - bæta við
-                                    router.push("/order-screen");
+                                    // e.g. store selection if you want:
+                                    // localStorage.setItem(
+                                    //     "selectedDrinkIds",
+                                    //     JSON.stringify(selectedDrinkId)
+                                    // );
+                                    // then navigate:
+                                    router.push("/next-page");
                                 }}
                             >
-                                Select Tiny Drinks
+                                Select This Tiny Dish
                             </button>
                         </div>
                     </div>

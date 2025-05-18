@@ -36,7 +36,7 @@ const SelectDrink = () => {
                 throw new Error(`Response status: ${response.status}`);
             }
             const json: ApiResponse = await response.json();
-            console.log(json.drinks, "halló, er ég hér?");
+            console.log(json.drinks, "tjekk");
             //returning only the "drinks" array from the api
             return json.drinks;
 
@@ -85,7 +85,7 @@ const SelectDrink = () => {
                                         onMouseEnter={() => {
                                             setHoveredDrinkId(im.idDrink);
                                         }}
-                                        //when not hovered anymore, unselected from hovered drinks
+                                        //when not hovered anymore, unselected from hovered
                                         onMouseLeave={() => setHoveredDrinkId("")}
                                         //onClick is a toggle, if idDrinks is in SelectedDrinkId, then unselect. If not: select
                                         onClick={() => {
@@ -112,8 +112,14 @@ const SelectDrink = () => {
                             </div>
 
                         )}
+
+                        <div className="dish-photo">
+
+                        </div>
+                        <div className="drink-info">
+
+                        </div>
                     </div>
-                    {/* right summary div - samhæfa og uppfæra*/}
                     <div className="div2">
                         <div className="left">
                             <p><strong>Selected Dish:</strong></p>
@@ -134,12 +140,17 @@ const SelectDrink = () => {
 
                         </div >
                         <div className="centered">
-
+                            {/* <p>To select this tiny dish and continue to tiny drinks selection click this tiny button</p> */}
                             <button
                                 className="button"
                                 onClick={() => {
-                                    // handleSelcet  -> store dish info in api - bæta við
-                                    router.push("/order-screen");
+                                    // e.g. store selection if you want:
+                                    // localStorage.setItem(
+                                    //     "selectedDrinkIds",
+                                    //     JSON.stringify(selectedDrinkId)
+                                    // );
+                                    // then navigate:
+                                    router.push("/next-page");
                                 }}
                             >
                                 Select Tiny Drinks

@@ -107,11 +107,13 @@ const SelectDish = () => {
                             <br></br>
 
                             <p><strong>Total price:</strong> ${mealPrice.toFixed(2)}</p>
+
+
                         </div >
                         <button
                             className="button"
                             onClick={() => {
-                                // handleSelcet  -> bæta við store dish info in api
+                                // handleSelcet  -> store dish info in api
                                 router.push("/select-drink");
                             }}
                         >
@@ -119,7 +121,7 @@ const SelectDish = () => {
                         </button>
                     </div>
                 </div>
-
+        </div>
             </main >
         </div >
     )

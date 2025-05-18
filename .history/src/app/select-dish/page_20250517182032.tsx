@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
@@ -17,13 +18,13 @@ type ApiResponse = {
     meals: Dish[];
 };
 
-//make random price - remove? and make constant price?
+const router = useRouter();
+
 const randomPrice = (min = 5, max = 100) => {
     const price = Math.random() * (max - min) + min;
     return Number(price.toFixed(2));
 };
 
-//random calories
 const randomCalories = (min = 300, max = 1000) => {
     const price = Math.random() * (max - min) + min;
     return Number(price.toFixed(0));
@@ -34,16 +35,6 @@ const SelectDish = () => {
     const [mealPrice, setMealPrice] = useState<number>(0);
     const [mealCalories, setMealCalories] = useState<number>(0);
 
-    const router = useRouter();
-
-    //skrifa í eigið api
-    // const handleSelect = () => {
-    //     if (!dish) return; -> óvirkur takki?
-    //     1) vista info í api
-    //     2)fara á næstu síðu
-    // };
-
-    //fetching dish from url and storing it in a json file
     const getDishData = async () => {
         try {
             const url = "https://themealdb.com/api/json/v1/1/random.php";
@@ -54,9 +45,8 @@ const SelectDish = () => {
                 throw new Error(`Response status: ${response.status}`);
             }
 
-            //Parse the response JSON into an array of Dish objects (ApiResponse)
+            //Parse the response JSON into an array of Dish objects
             const jsonDish: ApiResponse = await response.json();
-            // picks first (and only) element of the meal array and returns it
             const meal = jsonDish.meals[0];
             return meal;
         } catch (error: any) {
@@ -65,21 +55,29 @@ const SelectDish = () => {
             return null;
         }
     };
-    // Function to load and store dish, price and calories in state
-    const fetchDish = async () => {
-        const dish = await getDishData();
-        setDish(dish);
-        setMealPrice(randomPrice());
-        setMealCalories(randomCalories());
-    };
 
-    //everything loads once per mount
     useEffect(() => {
+        // Function to load and store dish in state
+        const fetchDish = async () => {
+            const dish = await getDishData();
+            setDish(dish);
+            setMealPrice(randomPrice());
+            setMealCalories(randomCalories());
+        };
         fetchDish();
     }, []);
 
+    const handleSelect = () => {
+        if (!dish) return;
+        // 1) write it into localStorage
+        localStorage.setItem("selectedDish", JSON.stringify(dish));
+        // 2) navigate to the next page
+        router.push("/select-drink");
+    };
+
     return (
         <div className="page-container">
+
             <main className="grid-wrapper">
                 <div className="parent-orderdish">
                     <div className="div5">
@@ -101,27 +99,27 @@ const SelectDish = () => {
                             <p><strong>Selected Dish:</strong></p>
                             {dish?.strMeal}
                             <p>Price: ${mealPrice.toFixed(2)}</p>
-                            <p><strong>Selected Drinks(s):</strong></p>
+                            <p><strong>Selected Drink:</strong></p>
 
                             <p><strong>Selected Date:</strong></p>
                             <br></br>
 
                             <p><strong>Total price:</strong> ${mealPrice.toFixed(2)}</p>
+
+
                         </div >
-                        <button
-                            className="button"
-                            onClick={() => {
-                                // handleSelcet  -> bæta við store dish info in api
-                                router.push("/select-drink");
-                            }}
-                        >
-                            Select Tiny Dish
-                        </button>
+                        <div className="centered">
+                            {/* <p>To select this tiny dish and continue to tiny drinks selection click this tiny button</p> */}
+                            <Link href={"../select-drink"}>
+                                <button className="button" onClick={handleSelect}>
+                                    Select This Tiny Dish
+                                </button>
+                            </Link>
+                        </div>
                     </div>
                 </div>
-
-            </main >
-        </div >
+            </main>
+        </div>
     )
 }
 

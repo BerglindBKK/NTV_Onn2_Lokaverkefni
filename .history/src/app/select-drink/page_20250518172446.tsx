@@ -112,8 +112,15 @@ const SelectDrink = () => {
                             </div>
 
                         )}
+
+                        <div className="dish-photo">
+
+                        </div>
+                        <div className="drink-info">
+
+                        </div>
                     </div>
-                    {/* right summary div - samhæfa og uppfæra*/}
+                    {/* right summary div */}
                     <div className="div2">
                         <div className="left">
                             <p><strong>Selected Dish:</strong></p>
@@ -134,11 +141,11 @@ const SelectDrink = () => {
 
                         </div >
                         <div className="centered">
-
+                            {/* <p>To select this tiny dish and continue to tiny drinks selection click this tiny button</p> */}
                             <button
                                 className="button"
                                 onClick={() => {
-                                    // handleSelcet  -> store dish info in api - bæta við
+                                    // handleSelcet  -> store dish info in api
                                     router.push("/order-screen");
                                 }}
                             >

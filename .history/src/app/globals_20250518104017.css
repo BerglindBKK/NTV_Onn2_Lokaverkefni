@@ -29,7 +29,9 @@ body {
   /* full viewport height minus nav */
   padding: 2rem 2rem 2rem 2rem;
   box-sizing: border-box;
+  /* include padding in height calculation */
   overflow-x: auto;
+  /* allow horizontal scrolling if needed */
   font-family: inter, sans-serif;
 }
 
@@ -64,12 +66,15 @@ body {
 
 .grid-wrapper {
   flex-grow: 1;
+  /* overflow-x: auto; */
+  /* scroll horizontally if needed */
 }
 
 /* Parent grid container */
 .parent-homescreen {
   display: grid;
   height: 100%;
+  /* fill the container height */
   width: 100%;
   grid-template-columns: minmax(400px, 1fr) minmax(300px, 1fr) minmax(300px, 1fr);
   grid-template-rows: minmax(600px, 70%) minmax(200px, 30%);
@@ -81,6 +86,7 @@ body {
 .parent-orderdish {
   display: grid;
   height: 100%;
+  /* fill the container height */
   width: 100%;
   grid-template-columns: minmax(400px, 1fr) minmax(300px, 1fr) minmax(300px, 1fr);
   /* grid-template-rows: minmax(600px, 70%) minmax(200px, 30%); */
@@ -106,6 +112,7 @@ body {
   height: 100%;
   font-size: 1.2rem;
   color: var(--primary-color);
+
   /* font-weight: semibold; */
 }
 
@@ -116,6 +123,8 @@ body {
   align-content: center;
   padding-left: 4rem;
   padding-right: 4rem;
+  /* keep this taller */
+  /* width: 100%; no fixed min-width here */
 }
 
 
@@ -128,6 +137,8 @@ body {
   /* align-items: center; */
   padding-top: 4rem;
   padding-bottom: 2rem;
+  overflow-x: auto;
+  /* allows horizontal scroll on smaller screens */
   overflow-y: hidden;
 }
 
@@ -146,16 +157,15 @@ body {
 .div5 {
   grid-area: 1 / 1 / 2 / 3;
   /* spans two columns */
+  min-height: 500px;
   align-content: center;
   padding-left: 4rem;
   padding-right: 4rem;
+  /* keep this taller */
+  /* width: 100%; no fixed min-width here */
   display: flex;
   flex-direction: column;
   gap: 2rem;
-  overflow-x: hidden;
-  overflow-y: auto;
-  height: calc(100vh - 9rem);
-  /* full viewport height minus nav mínus padding */
 }
 
 .left {
@@ -164,9 +174,13 @@ body {
 }
 
 .centered {
+  /* display: flex; */
+
   display: flex;
   justify-content: center;
 }
+
+/* Other styles */
 
 .button {
   padding: 0.6rem 1.2rem;
@@ -204,6 +218,8 @@ body {
 }
 
 .carousel {
+  /* width: 100%;
+  height: 100%; */
   min-width: 650px;
   min-height: 550px;
   overflow: hidden;
@@ -245,6 +261,7 @@ body {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 1rem;
+  /* width: 100%; */
   justify-items: center;
 
 }
@@ -252,6 +269,8 @@ body {
 .grid-item {
   position: relative;
   background: #e3dddd;
+  /* width: 100px;
+  height: 100px; */
   border-radius: 12px;
   overflow: hidden;
   display: flex;
@@ -277,12 +296,36 @@ body {
 }
 
 .grid-item--selected {
-  position: relative;
-  border-radius: 0.5rem;
-  background:
-    linear-gradient(45deg, #436156, #DFE594) border-box,
-    /* gradient for border */
-    var(--background) padding-box;
-  /* solid fill for content */
-  border: 0.5rem solid transparent;
+  .grid-item--selected {
+    /* set the border width and style but no color */
+    border: 0.5rem solid transparent;
+
+    /* paint that “transparent” border using a gradient */
+    border-image-source: linear-gradient(45deg, #378337, #6ccc6c);
+    border-image-slice: 1;
+    border-radius: 0.5rem;
+    /* keep your rounding too */
+  }
 }
+
+.grid-item--selected img {
+  border: 0.5rem solid rgb(106, 199, 106);
+  border-radius: 0.5rem;
+  border: none;
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.grid-item img {
+  /* width: 100%;
+  height: 100%; */
+  /* object-fit: cover;
+  object-position: center; */
+}
+
+
+/* .dish-info {
+  text-align: justify;
+  text-align-last: left;
+} */
