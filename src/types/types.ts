@@ -16,9 +16,46 @@ export type Dish = {
 	strTags: string;
 };
 
-export type Drink = Provision & {
-	brewer: string;
+// export type Drink = Provision & {
+// 	brewer: string;
+// };
+
+// export type Drink = Provision & {
+// 	idDrink: string;
+// 	strDrink: string;
+// 	strDrinkThumb: string;
+// }
+
+export type Drink = {
+	idDrink: string;
+	strDrink: string;
+	strDrinkThumb: string;
+	strGlass: string;
+	strCategory: string;
+	strAlcoholic: string;
+	strIngredient1: string;
+	strIngredient2: string;
+	strIngredient3: string;
+	strIngredient4: string;
+	strIngredient5: string;
+	strIngredient6: string;
 };
+
+// // Matches API shape
+// export type ApiDrink = {
+// 	idDrink: string;
+// 	strDrink: string;
+// 	strDrinkThumb: string;
+// 	// other API fields if needed
+// };
+
+// // Your internal drink, with price etc
+// export type Drink = Provision & {
+// 	idDrink: string;
+// 	strDrink: string;
+// 	strDrinkThumb: string;
+// 	price: number; // e.g. you add a price manually
+// };
 
 export type Order = {
 	id: number;
@@ -26,6 +63,11 @@ export type Order = {
 	dish: Dish;
 	drinks: Drink[];
 	count: number;
-	date: Date | string;
+	date: string | Date | null;
+	time: string;
 };
 
+// export type Date = {
+// 	date: string;
+// 	time: string;
+// }

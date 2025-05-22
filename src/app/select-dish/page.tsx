@@ -35,7 +35,7 @@ const SelectDish = () => {
     const fetchOrderByEmail = async (email: string) => {
         try {
             const order = await api.getOrderByEmail(email);
-            order.date = new Date(order.date);
+            // order.date = new Date(order.date);
             order.count = order.count ?? 1; // Troubleshooting, Ensure 'count' is defined
             setOrder(order);
         }

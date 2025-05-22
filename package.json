@@ -12,6 +12,7 @@
 		"bootstrap": "^5.3.6",
 		"date-fns": "^4.1.0",
 		"lesson12": "file:",
+		"lucide-react": "^0.511.0",
 		"next": "15.2.4",
 		"react": "^19.0.0",
 		"react-bootstrap": "^2.10.10",
