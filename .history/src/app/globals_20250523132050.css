@@ -246,13 +246,16 @@ body {
 
 .overview-left {
   display: flex;
-  height: 75px;
+  height: 100px;
   width: 100px;
   border-radius: 0.25rem
 }
 
 .overview-left img {
-  border-radius: 0.5rem
+  display: flex;
+  height: 100px;
+  width: 100px;
+  border-radius: 0.25rem
 }
 
 .left {
@@ -458,33 +461,4 @@ body {
   background-color: var(--primary-color);
   border-color: var(--secondary-color);
   color: #DFE594;
-}
-
-.minus-one {
-  background-color: var(--primary-color);
-  color: white;
-  height: 1.75rem;
-  width: 1.75rem;
-  border-radius: 2rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  display: inline-flex;
-  margin-right: 0.5rem;
-}
-
-.plus-one {
-  background-color: var(--primary-color);
-  color: white;
-  height: 1.75rem;
-  width: 1.75rem;
-  border-radius: 2rem;
-  margin-top: 0.5rem;
-  margin-left: 0.5rem;
-  margin-right: 1rem;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  display: inline-flex;
 }

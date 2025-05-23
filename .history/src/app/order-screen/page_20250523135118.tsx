@@ -129,7 +129,7 @@ const OrderScreen = () => {
 
                         </div>
                         {order?.drinks.map((im, idx) => (
-                            <div key={im.idDrink}>
+                            <p key={im.idDrink}>
                                 <div className="overview">
                                     <div className="overview-left">
                                         <img src={`${order?.drinks[idx].strDrinkThumb}/small`}>
@@ -141,7 +141,7 @@ const OrderScreen = () => {
                                     </div>
 
                                 </div>
-                            </div>
+                            </p>
                         ))
 
                         }

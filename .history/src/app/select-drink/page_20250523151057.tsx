@@ -296,7 +296,7 @@ const SelectDrink = () => {
                                             });
                                         }}>-</button>
                                     {drinkAmounts[drink.idDrink] || 1}
-                                    <p><strong>Count:</strong> {drink.count ?? 1}</p>
+                                    <p><strong>Count:</strong> {im.count ?? 1}</p>
                                     {/* <input
                                         className="input-amount"
                                         type="text"

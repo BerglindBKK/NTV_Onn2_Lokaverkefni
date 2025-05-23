@@ -117,7 +117,7 @@ const SelectDish = () => {
         const updatedOrder: Order = {
             ...order,
             dish: dish,
-            price: mealPrice,
+            price: parseFloat(mealPrice.toFixed(2)),
             drinks: order.drinks || [],
         };
 

@@ -83,25 +83,33 @@ const SelectDish = () => {
 
     //everything loads once per mount, stores email in local storage for next pages to look the order up
     useEffect(() => {
-        fetchDish();
-        const storedEmail = localStorage.getItem("userEmail");
-        console.log("storedEmail:", storedEmail);
-        if (storedEmail) {
-            fetchOrderByEmail(storedEmail);
-        } else {
-            console.warn("No email found in localStorage");
-        }
+        const init = async () => {
+            try {
+                await fetchDish();
+                const storedEmail = localStorage.getItem("userEmail");
+                if (storedEmail) {
+                    await fetchOrderByEmail(storedEmail);
+                } else {
+                    console.warn("No email found in localStorage");
+                }
+            } catch (err) {
+                console.error("Failed during init fetch:", err);
+            }
+        };
+
+        init();
     }, []);
+
 
     // commenta út troubleshooting kóðann, - eyða? ofaukið
     const handleSelectDish = async () => {
         // console.log("handleSelectDish called");
         // console.log("dish:", dish);
         // console.log("order:", order);
-        if (!dish || !order) {
-            console.warn("Missing dish or order, cannot proceed");
-            return;
-        }
+        // if (!dish || !order) {
+        //     console.warn("Missing dish or order, cannot proceed");
+        //     return;
+        // }
 
         // const updatedDish = {
         //     id: dish.idMeal,
@@ -113,13 +121,13 @@ const SelectDish = () => {
         //     price: mealPrice,
         // };
 
-        console.log("Order drinks:", order.drinks);
-        const updatedOrder: Order = {
-            ...order,
-            dish: dish,
-            price: mealPrice,
-            drinks: order.drinks || [],
-        };
+        // console.log("Order drinks:", order.drinks);
+        // const updatedOrder: Order = {
+        //     ...order,
+        //     dish: dish,
+        //     price: parseFloat(mealPrice.toFixed(2)),
+        //     drinks: order.drinks || [],
+        // };
 
         // console.log("Order object being sent to API:", updatedOrder);
         // console.log("Order to send:", JSON.stringify(updatedOrder, null, 2));
@@ -129,6 +137,26 @@ const SelectDish = () => {
         //     alert("Dish is missing required fields. Cannot update order.");
         //     return;
         // }
+        if (!dish || !order || !order.time || !order.date) {
+            console.warn("Missing required order fields.");
+            return;
+        }
+
+        const updatedOrder: Order = {
+            id: order.id,
+            email: order.email,
+            dish,
+            drinks: order.drinks || [],
+            count: order.count || 1,
+            date: order.date || new Date(),
+            time: order.time || new Date().toLocaleTimeString(),
+            price: parseFloat(mealPrice.toFixed(2)),
+        };
+
+        const dishWithPrice: Dish = {
+            ...dish,
+            price: mealPrice,
+        };
 
         try {
             console.log("Order to update:", order);

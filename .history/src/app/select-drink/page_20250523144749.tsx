@@ -157,11 +157,7 @@ const SelectDrink = () => {
         const updatedOrder: Order = {
             ...order,
             // dish: dish,
-            drinks: selectedDrinks.map((drink) => ({
-                ...drink,
-                count: parseInt(drinkAmounts[drink.idDrink] || "1", 10)
-            })),
-
+            drinks: selectedDrinks,
         };
 
         try {
@@ -174,12 +170,12 @@ const SelectDrink = () => {
         }
     };
 
-    // const handleAmountChange = (id: string, value: string) => {
-    //     setDrinkAmounts((prev) => ({
-    //         ...prev,
-    //         [id]: value || "1",
-    //     }));
-    // };
+    const handleAmountChange = (id: string, value: string) => {
+        setDrinkAmounts((prev) => ({
+            ...prev,
+            [id]: value || "1",
+        }));
+    };
 
 
     return (
@@ -283,9 +279,8 @@ const SelectDrink = () => {
 
                             <p><strong>Selected Drinks:</strong></p>
                             {selectedDrinks.map((drink) => (
-                                <div
-                                    className=""
-                                    key={drink.idDrink}>
+                                <div key={drink.idDrink}>
+                                    <p>{drink.strDrink}</p>
 
                                     <button
                                         className="minus-one"
@@ -295,8 +290,7 @@ const SelectDrink = () => {
                                                 return { ...prev, [drink.idDrink]: current - 1 >= 0 ? current - 1 : 0 };
                                             });
                                         }}>-</button>
-                                    {drinkAmounts[drink.idDrink] || 1}
-                                    <p><strong>Count:</strong> {drink.count ?? 1}</p>
+                                    <p>{drinkAmounts[drink.idDrink] || 1}</p>
                                     {/* <input
                                         className="input-amount"
                                         type="text"

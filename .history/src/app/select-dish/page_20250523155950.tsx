@@ -98,10 +98,10 @@ const SelectDish = () => {
         // console.log("handleSelectDish called");
         // console.log("dish:", dish);
         // console.log("order:", order);
-        if (!dish || !order) {
-            console.warn("Missing dish or order, cannot proceed");
-            return;
-        }
+        // if (!dish || !order) {
+        //     console.warn("Missing dish or order, cannot proceed");
+        //     return;
+        // }
 
         // const updatedDish = {
         //     id: dish.idMeal,
@@ -113,13 +113,13 @@ const SelectDish = () => {
         //     price: mealPrice,
         // };
 
-        console.log("Order drinks:", order.drinks);
-        const updatedOrder: Order = {
-            ...order,
-            dish: dish,
-            price: mealPrice,
-            drinks: order.drinks || [],
-        };
+        // console.log("Order drinks:", order.drinks);
+        // const updatedOrder: Order = {
+        //     ...order,
+        //     dish: dish,
+        //     price: parseFloat(mealPrice.toFixed(2)),
+        //     drinks: order.drinks || [],
+        // };
 
         // console.log("Order object being sent to API:", updatedOrder);
         // console.log("Order to send:", JSON.stringify(updatedOrder, null, 2));
@@ -129,6 +129,26 @@ const SelectDish = () => {
         //     alert("Dish is missing required fields. Cannot update order.");
         //     return;
         // }
+        if (!dish || !order || !order.time || !order.date) {
+            console.warn("Missing required order fields.");
+            return;
+        }
+
+        const mappedDish: Dish = {
+            idDrink: dish.idMeal,
+            name: dish.strMeal,
+            category: dish.strCategory || "Unknown",
+            cousine: dish.strArea || "Unknown",
+            description: dish.strInstructions || dish.strTags || "Tiny and mysterious",
+            imageSource: dish.strMealThumb,
+            price: mealPrice,
+        };
+
+        const updatedOrder: Order = {
+            ...order,
+            dish: mappedDish,
+            drinks: order.drinks || [],
+        };
 
         try {
             console.log("Order to update:", order);

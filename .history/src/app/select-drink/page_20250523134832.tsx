@@ -121,6 +121,10 @@ const SelectDrink = () => {
 
     }, []);
 
+    // useEffect(() => {
+
+    // }, [drinkAmounts]);
+
     // loads the jason and stores as an array in found state. 
     //results from input in search bar here now
     const fetchSearch = async () => {
@@ -157,11 +161,7 @@ const SelectDrink = () => {
         const updatedOrder: Order = {
             ...order,
             // dish: dish,
-            drinks: selectedDrinks.map((drink) => ({
-                ...drink,
-                count: parseInt(drinkAmounts[drink.idDrink] || "1", 10)
-            })),
-
+            drinks: selectedDrinks,
         };
 
         try {
@@ -174,13 +174,12 @@ const SelectDrink = () => {
         }
     };
 
-    // const handleAmountChange = (id: string, value: string) => {
-    //     setDrinkAmounts((prev) => ({
-    //         ...prev,
-    //         [id]: value || "1",
-    //     }));
-    // };
-
+    const handleAmountChange = (id: string, value: string) => {
+        setDrinkAmounts((prev) => ({
+            ...prev,
+            [id]: value,
+        }));
+    };
 
     return (
         <div className="page-container">
@@ -270,7 +269,6 @@ const SelectDrink = () => {
                                 <div className="order-info">
                                     <p><strong>Order Email:</strong> {order.email}</p>
                                     <p><strong>Selected Dish:</strong> {order.dish?.strMeal}</p>
-                                    <p><strong>Price:</strong> {order?.price}</p>
                                     {/* {order.dish?.strMealThumb && (
                                         <img
                                             src={order.dish.strMealThumb}
@@ -282,39 +280,29 @@ const SelectDrink = () => {
                             )}
 
                             <p><strong>Selected Drinks:</strong></p>
-                            {selectedDrinks.map((drink) => (
-                                <div
-                                    className=""
-                                    key={drink.idDrink}>
+                            {order?.drinks.length === 0 ? (
+                                <p>(none)</p>
+                            ) : (
+                                order?.drinks.map((im, idx) => (
+                                    <p>key = {im.idDrink}
+                                        <input
+                                            className="input-amount"
+                                            type="text"
+                                            value={drinkAmounts[im.idDrink] || ""}
+                                            onChange={(e) => handleAmountChange(im.idDrink, e.target.value)}
+                                            placeholder="1"
+                                        />
+                                    </p>
 
-                                    <button
-                                        className="minus-one"
-                                        onClick={() => {
-                                            setDrinkAmounts(prev => {
-                                                const current = +(prev[drink.idDrink] || 0);
-                                                return { ...prev, [drink.idDrink]: current - 1 >= 0 ? current - 1 : 0 };
-                                            });
-                                        }}>-</button>
-                                    {drinkAmounts[drink.idDrink] || 1}
-                                    <p><strong>Count:</strong> {drink.count ?? 1}</p>
-                                    {/* <input
-                                        className="input-amount"
-                                        type="text"
-                                        min="0"
-                                        value={drinkAmounts[drink.idDrink] || "1"}
-                                        onChange={(e) => handleAmountChange(drink.idDrink, e.target.value)}
-                                    /> */}
-                                    <button
-                                        className="plus-one"
-                                        onClick={() => {
-                                            setDrinkAmounts(prev => {
-                                                const current = +(prev[drink.idDrink] || 0);
-                                                return { ...prev, [drink.idDrink]: current + 1 };
-                                            });
-                                        }}>+</button>
-                                    {drink.strDrink}
-                                </div>
-                            ))}
+                                )
+
+                                    //             value={drinkAmounts[d.idDrink] || ""}
+                                    //             onChange={e => setDrinkAmounts(prev => ({
+                                    //                 ...prev,
+                                    //                 [d.idDrink]: e.target.value
+
+                                ))}
+
                         </div >
                         <div className="centered">
                             <button

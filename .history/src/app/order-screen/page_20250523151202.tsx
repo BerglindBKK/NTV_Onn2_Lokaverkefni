@@ -1,7 +1,7 @@
 "use client";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { Order } from "../../types/types";
+import { Order, Drink } from "../../types/types";
 import api from "../../api/api";
 import DatePicker from "react-datepicker";
 import { format } from 'date-fns';
@@ -137,7 +137,8 @@ const OrderScreen = () => {
                                     </div>
                                     <div className="overview-right">
                                         {order?.drinks[idx].strDrink}
-                                        {/* {order?.drinks[idx].count} */}
+                                        {order?.drinks[idx].count}
+                                        sdfgsd
                                     </div>
 
                                 </div>

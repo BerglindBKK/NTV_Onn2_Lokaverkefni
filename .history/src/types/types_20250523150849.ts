@@ -14,8 +14,8 @@ export type Dish = {
 	strArea: string;
 	strCategory: string;
 	strTags: string;
-	price: number;
 };
+
 // export type Drink = Provision & {
 // 	brewer: string;
 // };
@@ -66,7 +66,6 @@ export type Order = {
 	count: number;
 	date: string | Date | null;
 	time: string;
-	price: number;
 };
 
 // export type Date = {

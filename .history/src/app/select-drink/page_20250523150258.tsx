@@ -157,10 +157,7 @@ const SelectDrink = () => {
         const updatedOrder: Order = {
             ...order,
             // dish: dish,
-            drinks: selectedDrinks.map((drink) => ({
-                ...drink,
-                count: parseInt(drinkAmounts[drink.idDrink] || "1", 10)
-            })),
+            drinks: selectedDrinks,
 
         };
 
@@ -296,7 +293,6 @@ const SelectDrink = () => {
                                             });
                                         }}>-</button>
                                     {drinkAmounts[drink.idDrink] || 1}
-                                    <p><strong>Count:</strong> {drink.count ?? 1}</p>
                                     {/* <input
                                         className="input-amount"
                                         type="text"

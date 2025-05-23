@@ -128,19 +128,16 @@ const OrderScreen = () => {
                             </div>
 
                         </div>
-                        {order?.drinks.map((im, idx) => (
-                            <div key={im.idDrink}>
-                                <div className="overview">
-                                    <div className="overview-left">
-                                        <img src={`${order?.drinks[idx].strDrinkThumb}/small`}>
-                                        </img>
-                                    </div>
-                                    <div className="overview-right">
-                                        {order?.drinks[idx].strDrink}
-                                        {/* {order?.drinks[idx].count} */}
-                                    </div>
-
+                        {order.drinks.map((im, idx) => (
+                            <div className="overview">
+                                <div className="overview-left">
+                                    <img src={`${order?.drink[idx].strDrinkThumb}/small`}>
+                                    </img>
                                 </div>
+                                <div className="overview-right">
+                                    {order?.drink.strDrink}
+                                </div>
+
                             </div>
                         ))
 

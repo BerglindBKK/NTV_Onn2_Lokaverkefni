@@ -137,7 +137,7 @@ const OrderScreen = () => {
                                     </div>
                                     <div className="overview-right">
                                         {order?.drinks[idx].strDrink}
-                                        {/* {order?.drinks[idx].count} */}
+                                        {order?.drinks[idx].count}
                                     </div>
 
                                 </div>

@@ -157,11 +157,7 @@ const SelectDrink = () => {
         const updatedOrder: Order = {
             ...order,
             // dish: dish,
-            drinks: selectedDrinks.map((drink) => ({
-                ...drink,
-                count: parseInt(drinkAmounts[drink.idDrink] || "1", 10)
-            })),
-
+            drinks: selectedDrinks,
         };
 
         try {
@@ -174,12 +170,12 @@ const SelectDrink = () => {
         }
     };
 
-    // const handleAmountChange = (id: string, value: string) => {
-    //     setDrinkAmounts((prev) => ({
-    //         ...prev,
-    //         [id]: value || "1",
-    //     }));
-    // };
+    const handleAmountChange = (id: string, value: string) => {
+        setDrinkAmounts((prev) => ({
+            ...prev,
+            [id]: value || "1",
+        }));
+    };
 
 
     return (
@@ -283,35 +279,25 @@ const SelectDrink = () => {
 
                             <p><strong>Selected Drinks:</strong></p>
                             {selectedDrinks.map((drink) => (
-                                <div
-                                    className=""
-                                    key={drink.idDrink}>
-
+                                <div key={drink.idDrink}>
                                     <button
-                                        className="minus-one"
-                                        onClick={() => {
+                                        onChange={() => {
                                             setDrinkAmounts(prev => {
-                                                const current = +(prev[drink.idDrink] || 0);
-                                                return { ...prev, [drink.idDrink]: current - 1 >= 0 ? current - 1 : 0 };
+                                                const current = +(prev[drink.idDrink] || 0); // + converts to number
+                                                return {
+                                                    ...prev,
+                                                    [drink.idDrink]: current > 0 ? current - 1 : 0,
+                                                };
                                             });
-                                        }}>-</button>
-                                    {drinkAmounts[drink.idDrink] || 1}
-                                    <p><strong>Count:</strong> {drink.count ?? 1}</p>
-                                    {/* <input
+                                        }}
+                                    ></button>
+                                    <input
                                         className="input-amount"
                                         type="text"
                                         min="0"
                                         value={drinkAmounts[drink.idDrink] || "1"}
                                         onChange={(e) => handleAmountChange(drink.idDrink, e.target.value)}
-                                    /> */}
-                                    <button
-                                        className="plus-one"
-                                        onClick={() => {
-                                            setDrinkAmounts(prev => {
-                                                const current = +(prev[drink.idDrink] || 0);
-                                                return { ...prev, [drink.idDrink]: current + 1 };
-                                            });
-                                        }}>+</button>
+                                    />x
                                     {drink.strDrink}
                                 </div>
                             ))}

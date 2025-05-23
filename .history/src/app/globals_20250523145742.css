@@ -463,25 +463,23 @@ body {
 .minus-one {
   background-color: var(--primary-color);
   color: white;
-  height: 1.75rem;
-  width: 1.75rem;
+  height: 2rem;
+  width: 2rem;
   border-radius: 2rem;
   display: flex;
   align-items: center;
   justify-content: center;
   display: inline-flex;
-  margin-right: 0.5rem;
+  margin-right: 0.25rem 1rem;
 }
 
 .plus-one {
   background-color: var(--primary-color);
   color: white;
-  height: 1.75rem;
-  width: 1.75rem;
+  height: 2rem;
+  width: 2rem;
   border-radius: 2rem;
-  margin-top: 0.5rem;
-  margin-left: 0.5rem;
-  margin-right: 1rem;
+  margin: 0.25rem 1rem;
   display: flex;
   flex-direction: row;
   align-items: center;
