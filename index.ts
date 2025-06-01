@@ -1,9 +1,5 @@
-//Server that sores a list of orders in memory
-//creating endpoints
-//Clients can fetch, create, update, fetch specific and delete order (by id or email)
-
 import express, { type Express, type Request } from "express";
-import cors from "cors"; //allowes requests from the frontend or other domains
+import cors from "cors";
 import bodyParser from "body-parser";
 import type { Order } from "./types";
 
@@ -42,32 +38,49 @@ let orders: Order[] = [
 ];
 
 // Initialize api
-const api: Express = express(); //creates the server instance
-api.use(cors()); //enable
-api.use(express.json()); //enable
-api.use(bodyParser.urlencoded({ extended: false })); //Parses URL-encoded form data (from <form> elements)
+const api: Express = express();
+api.use(cors());
+api.use(express.json());
+api.use(bodyParser.urlencoded({ extended: false }));
 const port = 3001;
 
-// GET endpoint to get all orders. returns the entire list of orders. Just a read endpoint
+// GET endpoint to get all orders
 api.get("/api/orders", (_, res) => {
   console.log("Getting orders:", orders);
-  return res.json(orders);
+  return res.json({ success: true, response: orders });
 });
 
 // Validation function for order - note that the object validation might not be entirely accurate and might need some modification
-//ensures the incoming object has the right shape to be an Order
-const isOrder = (body: Order | Record<string, unknown>): body is Order => {
-  if (
-    "name" in body &&
-    typeof body.name === "string" &&
-    "email" in body &&
+//adjusted til að láta dish pöntun virka
+const isOrder = (body: any): body is Order => {
+  return (
+    typeof body === "object" &&
+    body !== null &&
     typeof body.email === "string" &&
-    "dish" in body &&
-    typeof body.dish === "object"
-  ) {
-    return true;
-  }
-  return false;
+    typeof body.count === "number" &&
+    typeof body.date === "string" || body.date instanceof Date &&
+    typeof body.dish === "object" &&
+    typeof body.dish.name === "string" &&
+    Array.isArray(body.drinks)
+  );
+};
+
+//gamla, halda for now, eyða seinna
+// const isOrder = (body: any): body is Order => {
+//   return (
+//     typeof body === "object" &&
+//     body !== null &&
+//     typeof body.email === "string" &&
+//     typeof body.count === "number" &&
+//     body.dish && typeof body.dish === "object" &&
+//     typeof body.dish.name === "string" &&
+//     Array.isArray(body.drinks)
+//   );
+// };
+
+//Added!! Creating the order with initially only email information
+const isEmailOnly = (body: Record<string, unknown>): body is { email: string } => {
+  return "email" in body && typeof body.email === "string";
 };
 
 // POST endpoint for creating an order
@@ -80,7 +93,8 @@ api.post("/api/create-order", (req: Request<Order>, res) => {
     return orders.findIndex((order) => order.email === req.body.email) >= 0;
   };
 
-  if (!isOrder(req.body)) {
+  //CHanged!! 
+  if (!isEmailOnly(req.body)) {
     res.json({
       success: false,
       error: "Must supply all properties of an order",
@@ -96,13 +110,24 @@ api.post("/api/create-order", (req: Request<Order>, res) => {
     return;
   }
 
-  //assigns a new ID to the Order
+  //changed!! to create initial order with only email
   const order: Order = {
-    ...req.body,
     id: nextId,
+    email: req.body.email,
+    count: 0,
+    date: new Date(),
+    dish: {
+      id: "",
+      name: "",
+      category: "",
+      cousine: "",
+      description: "",
+      imageSource: "",
+      price: 0,
+    },
+    drinks: [],
   };
 
-  // pushes the order into the array and makes a new id
   orders.push(order);
   nextId += 1;
 
@@ -139,27 +164,25 @@ api.put("/api/update-order", (req: Request<Order>, res) => {
   }
 
   // Map over each item, if the item has the same email as the email in the body, update the order with the new order changes
-  // BUG? orders = orders.map((o) => o.email === req.body.email ? req.body : o);
-  //orders = 
-  orders.map((o) => {
-    if (o.email === req.body.email) {
-      return req.body;
-    }
-    return o;
-  });
+  //changed while trying to debug
+  orders = orders.map((o) => (o.email === req.body.email ? req.body : o));
 
   return res.json({
     success: true,
     order: req.body,
-
   });
 });
+
+
 
 // GET endpoint to get order by email
 api.get("/api/order/:email", (req, res) => {
   const order = orders.find((order) => order.email === req.params.email);
   if (order) {
-    return res.json(order);
+    return res.json({
+      success: true,
+      response: order,
+    });
   }
 
   res.json({
@@ -168,23 +191,26 @@ api.get("/api/order/:email", (req, res) => {
   });
 });
 
+//possibly making trouble, deleting one delete for now, ath aftur seinna. 
+// Þarf að eyða pöntun? ekki í verkefnalýsingu?
+
 // DELETE endpoint to delete order by id
-api.delete("/api/order/:id", (req, res) => {
-  const orderId = Number.parseInt(req.params.id, 10);
-  const order = orders.find((e) => e.id === orderId);
-  if (order) {
-    orders = orders.filter((e) => e.id !== orderId);
-    res.json({
-      success: true,
-      deletedorder: order,
-    });
-  } else {
-    res.json({
-      success: false,
-      error: `Could not find order with id=${orderId}`,
-    });
-  }
-});
+// api.delete("/api/order/:id", (req, res) => {
+//   const orderId = Number.parseInt(req.params.id, 10);
+//   const order = orders.find((e) => e.id === orderId);
+//   if (order) {
+//     orders = orders.filter((e) => e.id !== orderId);
+//     res.json({
+//       success: true,
+//       deletedorder: order,
+//     });
+//   } else {
+//     res.json({
+//       success: false,
+//       error: `Could not find order with id=${orderId}`,
+//     });
+//   }
+// });
 
 // DELETE endpoint to delete order by email
 api.delete("/api/order/:email", (req, res) => {
@@ -204,7 +230,6 @@ api.delete("/api/order/:email", (req, res) => {
   }
 });
 
-//starts the server
 api.listen(port, () => {
   console.log(`[server]: Server is running at http://localhost:${port}`);
 });
