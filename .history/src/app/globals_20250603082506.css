@@ -587,10 +587,11 @@ p {
   }
 
   .custom-input {
-    font-size: x-small !important;
+    font-size: x-small;
     margin: 0;
     padding-top: 0rem;
     padding-bottom: 0rem;
+    width: 100%;
   }
 
   .amount {
@@ -825,7 +826,7 @@ p {
   border: 1.5px solid var(--accent-color);
   border-radius: 6px;
   padding: 0.25rem 0.75rem;
-  font-size: medium;
+  font-size: x-small;
   color: var(--primary-color);
   width: 100%;
   height: auto;
