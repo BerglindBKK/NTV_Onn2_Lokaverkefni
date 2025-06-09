@@ -65,19 +65,6 @@ const isOrder = (body: any): body is Order => {
   );
 };
 
-//gamla, halda for now, eyða seinna
-// const isOrder = (body: any): body is Order => {
-//   return (
-//     typeof body === "object" &&
-//     body !== null &&
-//     typeof body.email === "string" &&
-//     typeof body.count === "number" &&
-//     body.dish && typeof body.dish === "object" &&
-//     typeof body.dish.name === "string" &&
-//     Array.isArray(body.drinks)
-//   );
-// };
-
 //Added!! Creating the order with initially only email information
 const isEmailOnly = (body: Record<string, unknown>): body is { email: string } => {
   return "email" in body && typeof body.email === "string";
@@ -173,8 +160,6 @@ api.put("/api/update-order", (req: Request<Order>, res) => {
   });
 });
 
-
-
 // GET endpoint to get order by email
 api.get("/api/order/:email", (req, res) => {
   const order = orders.find((order) => order.email === req.params.email);
@@ -191,39 +176,22 @@ api.get("/api/order/:email", (req, res) => {
   });
 });
 
-//possibly making trouble, deleting one delete for now, ath aftur seinna. 
-// Þarf að eyða pöntun? ekki í verkefnalýsingu?
-
-// DELETE endpoint to delete order by id
-// api.delete("/api/order/:id", (req, res) => {
-//   const orderId = Number.parseInt(req.params.id, 10);
-//   const order = orders.find((e) => e.id === orderId);
-//   if (order) {
-//     orders = orders.filter((e) => e.id !== orderId);
-//     res.json({
-//       success: true,
-//       deletedorder: order,
-//     });
-//   } else {
-//     res.json({
-//       success: false,
-//       error: `Could not find order with id=${orderId}`,
-//     });
-//   }
-// });
-
 // DELETE endpoint to delete order by email
 api.delete("/api/order/:email", (req, res) => {
-  const paramEmail = req.params.email;
-  const order = orders.find((e) => e.email === paramEmail);
+  const paramEmail = decodeURIComponent(req.params.email).toLowerCase();
+  console.log("Delete request for email:", paramEmail);
+  const order = orders.find((e) => e.email.toLowerCase() === paramEmail);
   if (order) {
-    orders = orders.filter((e) => e.email !== paramEmail);
+    orders = orders.filter((e) => e.email.toLowerCase() !== paramEmail);
+    console.log("Deleted order:", order);
     res.json({
       success: true,
-      deletedorder: order,
+      response: order,
     });
   } else {
+    console.log("Order not found for email:", paramEmail);
     res.json({
+
       success: false,
       error: `Could not find order with id=${paramEmail}`,
     });
