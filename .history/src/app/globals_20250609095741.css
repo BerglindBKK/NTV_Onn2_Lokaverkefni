@@ -207,7 +207,7 @@ p {
   overflow-x: auto;
   background-color: white;
   font-family: var(--font-inter);
-  text-align: justify;
+  display: justify;
 }
 
 .grid-wrapper {

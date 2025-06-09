@@ -207,7 +207,7 @@ p {
   overflow-x: auto;
   background-color: white;
   font-family: var(--font-inter);
-  text-align: justify;
+  text-transform: uppercase;
 }
 
 .grid-wrapper {
@@ -219,7 +219,7 @@ p {
   display: grid;
   height: 100%;
   width: 100%;
-  grid-template-columns: minmax(800px, 1fr) minmax(100px, 1fr) minmax(600px, 1fr);
+  grid-template-columns: minmax(900px, 1fr) minmax(100px, 1fr) minmax(500px, 1fr);
   grid-template-rows: minmax(600px, 70%) minmax(200px, 30%);
   gap: 1rem;
   overflow-x: auto;
